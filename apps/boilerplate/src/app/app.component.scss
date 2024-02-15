@@ -1,0 +1,62 @@
+@import "./../styles";
+
+:host {
+  height: 100%;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: 55px 1fr auto;
+
+  .logo {
+    position: relative;
+    height: 100%;
+    margin-top: auto
+  }
+
+  h1 {
+    font-size: 62px;
+  }
+
+  header {
+    box-sizing: border-box;
+    padding: 10px 15px 15px;
+    height: 55px;
+    width: 100%;
+    position: sticky;
+    background: whitesmoke;
+    opacity: 0.9;
+    top: 0;
+    z-index: 89;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+  }
+
+  .content {
+    position: relative;
+    height: 100%;
+    max-height: 450px;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    width: 960px;
+  }
+}
+
+.sub-header {
+  width: 100%;
+  min-height: 80px;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  margin: 0 auto;
+  background: #0b2440;
+}
+
+.dropdown{
+  width: 400px;
+  position: relative;
+  .checkbox-dropdown{
+    position: absolute;
+
+  }
+}

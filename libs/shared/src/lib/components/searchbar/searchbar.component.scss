@@ -1,0 +1,41 @@
+:host {
+  display: inherit;
+  position: relative;
+  width: 350px;
+}
+.loading{
+  margin-top:0;
+  position: relative;
+  letter-spacing: 5px;
+  font-weight: bolder;
+  text-align: center;
+  transition: 0.3s all;
+}
+
+.searchbar-container {
+  position: relative;
+  display: grid;
+
+  .searchbar-input {
+    padding: 10px 30px 10px 10px;
+    box-shadow: inset 1px 2px 3px grey;
+    border-radius: 15px;
+    border: 0;
+    outline: none;
+  }
+
+  input::placeholder{
+    color: lightgray;
+    padding-left: 10px
+  }
+
+  span {
+    right: 0;
+    position: absolute;
+    border-radius: 15px;
+    margin-top: 10px;
+    margin-right: 10px;
+    color: lightgray;
+  }
+}
+

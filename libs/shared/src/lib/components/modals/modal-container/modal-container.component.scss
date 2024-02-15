@@ -1,0 +1,52 @@
+:host {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  z-index: 99;
+
+  .x-icon {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 10px
+  }
+
+  .dialog {
+    background: whitesmoke;
+
+    display: grid;
+    grid-template-rows:30px auto 0.5fr;
+    grid-row-gap: 20px;
+    align-content: center;
+    border: 1px solid black;
+    box-sizing: border-box;
+    padding: 25px 25px 10px 25px;
+
+    &-header {
+      display: grid;
+      align-items: center;
+      height: inherit;
+    }
+
+    &-content {
+      overflow-y: auto;
+      max-height:350px;
+    }
+
+    &-footer {
+      height: 100%;
+      display: flex;
+      align-content: center;
+      justify-content: right;
+      position: relative;
+      ::ng-deep{
+        .mat-dialog-actions{
+          margin-bottom: 0px;
+
+        }
+      }
+
+    }
+  }
+}
+

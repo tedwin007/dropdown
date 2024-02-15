@@ -1,0 +1,47 @@
+$primary: #0a2540;
+$secondary: #2dd5c4;
+$warning: red;
+
+$btn-primary: $primary;
+$btn-secondary: $secondary;
+
+
+.primary {
+  color: $primary;
+
+  &-color {
+    color: $primary;
+  }
+
+  &-btn {
+    color: $secondary;
+    background-color: $primary;
+
+    &:hover {
+      transition: 0.75s all;
+      background-color: $secondary;
+    }
+  }
+
+  &-shadow {
+    box-shadow: 0 8px 16px $secondary;
+  }
+}
+
+.secondary {
+  color: $secondary;
+
+  &-color {
+    color: $secondary;
+  }
+
+  &-btn {
+    color: $primary;
+    background-color: $secondary;
+    &:hover {
+      transition: 0.75s all;
+      background-color: $primary;
+    }
+  }
+}
+
