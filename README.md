@@ -1,8 +1,7 @@
 
 
 
-![](/Users/tidharwienreb/Desktop/מקצועי/dropdown/example.gif)
-
+<img src="./example.gif"/>
 
 
 
