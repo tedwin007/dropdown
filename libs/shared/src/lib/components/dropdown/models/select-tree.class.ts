@@ -7,6 +7,7 @@ import {AbstractBaseTree, nodeMap} from "./abstract-base-tree.class";
  *
  */
 export class DropDownTree extends AbstractBaseTree<SelectNode, NodeWithCheckBox> {
+  private _searchTokens = new Map<string, NodeWithCheckBox[]>();
 
   constructor(label: string, id: string, children: SelectNode[], public collapsible = true) {
     super(label, id, children);
@@ -22,6 +23,28 @@ export class DropDownTree extends AbstractBaseTree<SelectNode, NodeWithCheckBox>
       parentNode?.id,
     )
   }
+
+  filterByText(token: string): NodeWithCheckBox[] {
+    if (!token) return this.children;
+    if (this._searchTokens.has(token)) return this._searchTokens.get(token) || [];
+    const res = this.filterChildren(token, this.children, new Set());
+    this._searchTokens.set(token, res);
+    return res
+  }
+
+  filterChildren(token: string, children: NodeWithCheckBox[], result = new Set()): NodeWithCheckBox[] {
+    children.forEach((item) => {
+      if (!result.has(item.parentId)) {
+        if (item.label.toLowerCase().includes(token.toLowerCase())) {
+          result.add(item.id)
+        }
+        if (item.children?.length) {
+          this.filterChildren(token, item.children, result)
+        }
+      }
+    })
+    return Array.from(result).map((item) => nodeMap.get(item));
+  }
 }
 
 export class NodeWithCheckBox {
@@ -35,8 +58,7 @@ export class NodeWithCheckBox {
     public collapsible = true,
     public parentId?: string,
     public checked = CheckboxState.unchecked) {
-    // todo: collapsed logic
-    this.collapsed = this.collapsible
+    this.collapsed = this.collapsible;
   }
 
   toggleCollapseState():void {
@@ -50,6 +72,14 @@ export class NodeWithCheckBox {
     const parent: NodeWithCheckBox = nodeMap.get(this.parentId)
     if (parent) this.traversalParents(parent, status);
     this.children = this.traversalChildren(this.children, status);
+  }
+
+  traversalChildren(nodes: NodeWithCheckBox[], status: CheckboxState): NodeWithCheckBox[] {
+    return nodes.map((item: NodeWithCheckBox) => {
+      item.checked = status;
+      if (item.children.length) this.traversalChildren(item.children, status);
+      return item
+    })
   }
 
   traversalParents(parent: NodeWithCheckBox, status: CheckboxState):void {
@@ -72,11 +102,4 @@ export class NodeWithCheckBox {
     return parent?.children.every((item) => item.checked === 1);
   }
 
-  traversalChildren(nodes: NodeWithCheckBox[], status: CheckboxState): NodeWithCheckBox[] {
-    return nodes.map((item: NodeWithCheckBox) => {
-      item.checked = status;
-      if (item.children.length) this.traversalChildren(item.children, status);
-      return item
-    })
-  }
 }

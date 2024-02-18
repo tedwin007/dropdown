@@ -18,7 +18,7 @@ import {CheckboxState} from "../models/enums/checkbox-state.enum";
 
           {{ node.label }}
 
-          <div *ngIf="node.children.length">
+          <div *ngIf="node.children?.length">
             <dropdown-tree *ngIf="!node.collapsed"
                            [nodes]="node.children"
                            [parent]="node">

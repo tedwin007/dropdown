@@ -2,12 +2,11 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {NodeWithCheckBox} from "../models/select-tree.class";
-import {DropdownContainerComponent} from "../dropdown-container.component";
 
 @Component({
   selector: 'checkbox-option',
   template: `
-    <div *ngIf="!!node.children.length" class="collapsed-btn" (click)="toggleCollapse()">
+    <div *ngIf="!!node.children?.length" class="collapsed-btn" (click)="toggleCollapse()">
       {{ node.collapsed ? '+' : '-' }}
     </div>
 
@@ -28,6 +27,6 @@ export class CheckboxOptionComponent {
   @Output() optionSelected: EventEmitter<NodeWithCheckBox> = new EventEmitter();
 
   toggleCollapse(): void {
-    this.node.toggleCollapseState()
+    this.node.toggleCollapseState();
   }
 }

@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
-import {selectTree} from "../../../../libs/shared/src/lib/components/dropdown/models/tests/mocks";
-import {DropDownTree} from "../../../../libs/shared/src/lib/components/dropdown/models/select-tree.class";
+import {selectTree, SelectTree} from "@tw/shared";
 
 @Component({
   selector: 'tw-root',
@@ -8,12 +7,14 @@ import {DropDownTree} from "../../../../libs/shared/src/lib/components/dropdown/
     <header>AppDom</header>
 
     <section class="container">
-      <tw-dropdown class="dropdown" [dropDown]="dropDown"></tw-dropdown>
+      <tw-dropdown class="dropdown"
+                   [dropDownTree]="dropDown">
+      </tw-dropdown>
     </section>
   `,
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent  {
-  protected dropDown: DropDownTree = new DropDownTree(selectTree.label,selectTree.id,selectTree.children);
+  protected dropDown: SelectTree = selectTree;
 }
 

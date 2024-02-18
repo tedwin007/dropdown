@@ -3,12 +3,13 @@ import {TreeNode} from "./interfaces/tree.interfaces";
 export const nodeMap = new Map();
 
 export abstract class AbstractBaseTree<N extends TreeNode, T extends N> implements TreeNode {
-  children: T[];
-  level = 0
-
   protected constructor(public label: string, public id: string, children: N[]) {
+    nodeMap.set(id, this)
     this.children = this.init(children)
   }
+
+  children: T[];
+  level = 0
 
   abstract createNode(node: TreeNode, level: number, parentNode?: TreeNode): T;
 

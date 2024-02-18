@@ -1,18 +1,18 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {DropdownTreeComponent} from "./dropdown-tree/dropdown-tree.component";
-import {SearchbarComponent} from "@tw/shared";
 import {CommonModule} from "@angular/common";
-import {AbstractBaseTree} from "./models/abstract-base-tree.class";
-import {TreeNode} from "./models/interfaces/tree.interfaces";
+import {SelectTree} from "./models/interfaces/tree.interfaces";
+import {DropDownTree, NodeWithCheckBox} from "./models/select-tree.class";
+import {SearchbarComponent} from '../searchbar/searchbar.component';
 
 @Component({
   selector: 'tw-dropdown',
   template: `
-    <ng-container *ngIf="dropDown">
+    <ng-container *ngIf="_dropDown">
       <div class="searchbar-container">
-        <tw-searchbar></tw-searchbar>
+        <tw-searchbar (searchChange)="inMemorySearch($event)"></tw-searchbar>
       </div>
-      <dropdown-tree class="checkbox-dropdown" [nodes]="dropDown.children"></dropdown-tree>
+      <dropdown-tree class="checkbox-dropdown" [nodes]="children"></dropdown-tree>
     </ng-container>
   `,
   styles: [`
@@ -55,5 +55,28 @@ import {TreeNode} from "./models/interfaces/tree.interfaces";
   ]
 })
 export class DropdownContainerComponent {
-  @Input() dropDown!: AbstractBaseTree<TreeNode, any>
+  // see 'In Memory Search' comment
+  @Output() searchChange = new EventEmitter<string>()
+  // onChange is not implemented, for concept use only
+  @Output() onChange = new EventEmitter<string>()
+  protected _dropDown!: DropDownTree;
+  protected children!: NodeWithCheckBox[];
+
+  @Input() set dropDownTree(tree: SelectTree) {
+    this._dropDown = new DropDownTree(tree.label, tree.id, tree.children, tree.collapsible)
+    this.children = this._dropDown.children;
+  }
+
+  /**
+   * In Memory Search
+   *
+   * This is only an example of implementation (in-memory). (I guess it is supposed to work)
+   * you might want to send "onSearch" as an output and implement the search there.
+   * Or alternatively, you only want to have an interface of search functionality and get the implementation from the "user"
+   * @param token
+   */
+  inMemorySearch(token: string): void {
+    this.children = this._dropDown.filterByText(token);
+    this.searchChange.emit(token);
+  }
 }

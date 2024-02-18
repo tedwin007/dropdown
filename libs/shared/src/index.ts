@@ -1,4 +1,5 @@
-
+export * from "./lib/components/dropdown/models/tests/mocks";
+export * from "./lib/components/dropdown/models/interfaces/tree.interfaces";
 export * from "./lib/components/modals/services/modals-manger.service";
 export * from "./lib/components/modals/types/modal-size.enum";
 export * from "./lib/components/modals/types/modal.interface";
